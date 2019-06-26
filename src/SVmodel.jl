@@ -1,8 +1,8 @@
 using Statistics, Random
 # version which generates shock internally
 function SVmodel(θ, n, burnin)
-    shocks_u = randn(n+burnin,1)
-    shocks_e = randn(n+burnin,1)
+    shocks_u = randn(n+burnin)
+    shocks_e = randn(n+burnin)
     SVmodel(θ, n, shocks_u, shocks_e, false)
 end    
 
