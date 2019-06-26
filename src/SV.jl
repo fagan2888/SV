@@ -1,5 +1,5 @@
 module SV
-using Econometrics
+using Econometrics, Random, Statistics, LinearAlgebra
 # Utilities
 include("HAR.jl")
 include("aux_stat.jl")
