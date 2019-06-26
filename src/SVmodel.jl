@@ -2,7 +2,7 @@
 function SVmodel(θ, n, burnin)
     shocks_u = randn(n+burnin,1)
     shocks_e = randn(n+burnin,1)
-    SVmodel(θ, n, shocks_u, shocks_e, savedata=false)
+    SVmodel(θ, n, shocks_u, shocks_e, false)
 end    
 
 # the dgp: simple discrete time stochastic volatility (SV) model

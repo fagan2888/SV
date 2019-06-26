@@ -1,3 +1,4 @@
+
 function aux_stat(y)
     y, m, s = stnorm(abs.(y))
     # look for evidence of volatility clusters
