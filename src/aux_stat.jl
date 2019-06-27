@@ -1,6 +1,11 @@
-
+using Statistics
 function aux_stat(y)
-    y, m, s = stnorm(abs.(y))
+    # trim 1% outliers
+    y = abs.(y)
+    q = quantile(y,.99)
+    test = y .< q
+    y = y[test,:]
+    y, m, s = stnorm(y)
     # look for evidence of volatility clusters
     mm = ma(y,5)
     mm = mm[5:end]
