@@ -1,7 +1,7 @@
 using Statistics
 function aux_stat(y)
     # trim 1% outliers
-    y = abs.(y)
+    y = abs.(y)[:]
     q = quantile(y,.99)
     test = y .< q
     y = y[test,:]
