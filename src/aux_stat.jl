@@ -1,6 +1,6 @@
 
 function aux_stat(y)
-    y, m, s = stnorm(log.(0.1 .+ y.^2.0))
+    y, m, s = stnorm(abs.(y))
     # look for evidence of volatility clusters
     mm = ma(y,5)
     mm = mm[5:end]
