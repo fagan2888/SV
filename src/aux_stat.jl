@@ -1,11 +1,6 @@
 using Statistics
 function aux_stat(y)
-    # trim 1% outliers
-    y = abs.(y)[:]
-    q = quantile(y,.99)
-    test = y .< q
-    y = y[test,:]
-    y, m, s = stnorm(y)
+    y = abs.(y)
     # look for evidence of volatility clusters
     mm = ma(y,5)
     mm = mm[5:end]
@@ -16,5 +11,5 @@ function aux_stat(y)
         clusters = 1.0
     end    
     ϕ = HAR(y)
-    vcat(m, s, clusters, ϕ)
+    vcat(clusters, ϕ)
 end
