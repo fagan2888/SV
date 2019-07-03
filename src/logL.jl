@@ -8,15 +8,20 @@ function logL(θ, m, n, shocks_u, shocks_e, withdet=true)
         ms[s,:] = SVmodel(θ, n, shocks_u[:,s], shocks_e[:,s])
     end
     mbar = mean(ms,dims=1)[:]
-    Σ = cov(ms)
-    x = (m .- mbar)
-    logL = try
-        if withdet
-            logL = -0.5*log(det(Σ)) - 0.5*x'*inv(Σ)*x # for Bayesian
-        else    
-            logL = 0.5*x'*inv(Σ)*x # for classic indirect inference (note sign change)
-        end    
-    catch
-        logL = -Inf
-    end
+    if ~any(isnan.(mbar))
+        Σ = cov(ms)
+        x = (m .- mbar)
+        lnL = try
+            if withdet
+                lnL = -0.5*log(det(Σ)) - 0.5*x'*inv(Σ)*x # for Bayesian
+            else    
+                lnL = 0.5*x'*inv(Σ)*x # for classic indirect inference (note sign change)
+            end    
+        catch
+            lnL = -Inf
+        end
+     else
+         lnL = -Inf
+     end
+     return lnL
 end
