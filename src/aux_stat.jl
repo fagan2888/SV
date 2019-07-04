@@ -1,7 +1,6 @@
 using Statistics
 function aux_stat(y)
     y = abs.(y)
-    y, m, s = stnorm(y)
     # look for evidence of volatility clusters
     mm = ma(y,5)
     mm = mm[5:end]
@@ -12,5 +11,5 @@ function aux_stat(y)
         clusters = 1.0
     end    
     ϕ = HAR(y)
-    vcat(m, s, clusters, ϕ)
+    vcat(clusters, ϕ)
 end
