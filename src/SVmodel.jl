@@ -13,12 +13,13 @@ function SVmodel(θ, n, shocks_u, shocks_e, savedata=false)
     σu = θ[3]
     burnin = size(shocks_u,1) - n
     hlag = 0.0
-    h = ρ.*hlag .+ σu.*shocks_u[1] # figure out type
-    y = σe.*exp(h./2.0).*shocks_e[1]
+    α = 2.0*log(σe)
+    h = α + ρ.*(hlag - α) .+ σu.*shocks_u[1] # figure out type
+    y = exp(h./2.0).*shocks_e[1]
     ys = zeros(n,1)
     for t = 1:burnin+n
-        h = ρ.*hlag .+ σu.*shocks_u[t]
-        y = σe.*exp(h./2.0).*shocks_e[t]
+        h = α + ρ.*(hlag- α) .+ σu.*shocks_u[t]
+        y = exp(h./2.0).*shocks_e[t]
         if t > burnin 
             ys[t-burnin] = y
         end    
