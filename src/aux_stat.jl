@@ -5,11 +5,11 @@ function aux_stat(y)
     mm = ma(y,5)
     mm = mm[5:end]
     clusters = 0.0
-    try
+#    try
         clusters = quantile(mm,0.75)-quantile(mm, 0.25)
-    catch
-        clusters = 1.0
-    end    
+#    catch
+#        clusters = 1.0
+#    end    
     ϕ = HAR(y)
     vcat(clusters, ϕ)
 end
