@@ -27,5 +27,5 @@ function SVmodel(θ, n, shocks_u, shocks_e, savedata=false)
     if savedata == true
         writedlm("svdata.txt", ys)
     end    
-    sqrt(n)*aux_stat(ys)
+    ys
 end
