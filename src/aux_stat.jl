@@ -1,7 +1,11 @@
 using Statistics
-function aux_stat(y)
-    y = abs.(y)
-    # look for evidence of volatility clusters
+function aux_stat(y, useabs=true)
+    if useabs
+        y = abs.(y)
+    else
+        y = log.(y.^2.0)
+    end    
+    # look for evidence of volatility clusters, for ρ
     mm = ma(y,5)
     mm = mm[5:end]
     clusters = 0.0
@@ -9,7 +13,7 @@ function aux_stat(y)
         clusters = quantile(mm,0.75)-quantile(mm, 0.25)
     catch
         clusters = 1.0
-    end    
-    ϕ = HAR(y)
-    vcat(clusters, ϕ)
+    end
+    # HAR model, for all params
+    vcat(clusters, HAR(y))
 end
