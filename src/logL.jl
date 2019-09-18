@@ -1,11 +1,11 @@
 # asymptotic Gaussian likelihood function of statistic
-function logL(θ, m, n, shocks_u, shocks_e, withdet=true, useabs=true)
+function logL(θ, m, n, η, ϵ, withdet=true)
     S = size(shocks_u,2)
     k = size(m,1)
-    ms = zeros(eltype(aux_stat(SVmodel(θ, n, shocks_u[:,1], shocks_e[:,1]))), S, k)
+    ms = zeros(S, k)
     # this loop could be parallelized!
     Threads.@threads for s = 1:S
-        ms[s,:] = sqrt(n)*aux_stat(SVmodel(θ, n, shocks_u[:,s], shocks_e[:,s]), useabs)
+        ms[s,:] = sqrt(n)*aux_stat(SVmodel(θ, n, η[:,s], ϵ[:,s]))
     end
     mbar = mean(ms,dims=1)[:]
     if ~any(isnan.(mbar))

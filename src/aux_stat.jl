@@ -1,9 +1,6 @@
 using Statistics
-function aux_stat(y, useabs=true)
-    if useabs
-        y = abs.(y)
-    else
-        y = log.(y.^2.0)
+function aux_stat(y)
+    y = abs.(y)
     end    
     # look for evidence of volatility clusters, for ρ
     mm = ma(y,5)

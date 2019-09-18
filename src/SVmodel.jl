@@ -1,9 +1,9 @@
 using Statistics, Random
 # version which generates shock internally
 function SVmodel(θ, n, burnin)
-    shocks_u = randn(n+burnin)
-    shocks_e = randn(n+burnin)
-    SVmodel(θ, n, shocks_u, shocks_e, false)
+    η = randn(n+burnin)
+    ϵ = randn(n+burnin)
+    SVmodel(θ, n, η, ϵ, false)
 end    
 
 # the dgp: simple discrete time stochastic volatility (SV) model
@@ -15,9 +15,9 @@ function SVmodel(θ, n, η, ϵ, savedata=false)
     hlag = 0.0
     ys = zeros(n,1)
     for t = 1:burnin+n
-        h = α + ρ.*(hlag - α) .+ σ.*η[t] # figure out type
+        h = α + ρ*(hlag - α) + σ*η[t] # figure out type
         σt = exp(h/2.0)
-        y = σt.*ϵ[t]
+        y = σt*ϵ[t]
         if t > burnin 
             ys[t-burnin] = y
         end    
