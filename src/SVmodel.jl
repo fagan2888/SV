@@ -7,18 +7,17 @@ function SVmodel(θ, n, burnin)
 end    
 
 # the dgp: simple discrete time stochastic volatility (SV) model
-function SVmodel(θ, n, shocks_u, shocks_e, savedata=false)
-    σe = θ[1]
+function SVmodel(θ, n, η, ϵ, savedata=false)
+    α = θ[1]
     ρ = θ[2]
-    σu = θ[3]
-    burnin = size(shocks_u,1) - n
+    σ = θ[3]
+    burnin = size(η,1) - n
     hlag = 0.0
-    h = ρ.*hlag .+ σu.*shocks_u[1] # figure out type
-    y = σe.*exp(h./2.0).*shocks_e[1]
     ys = zeros(n,1)
     for t = 1:burnin+n
-        h = ρ.*hlag .+ σu.*shocks_u[t]
-        y = σe.*exp(h./2.0).*shocks_e[t]
+        h = α + ρ.*(hlag - α) .+ σ.*η[t] # figure out type
+        σt = exp(h/2.0)
+        y = σt.*ϵ[t]
         if t > burnin 
             ys[t-burnin] = y
         end    
