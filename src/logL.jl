@@ -1,6 +1,6 @@
 # asymptotic Gaussian likelihood function of statistic
 function logL(θ, m, n, η, ϵ, withdet=true)
-    S = size(shocks_u,2)
+    S = size(η,2)
     k = size(m,1)
     ms = zeros(S, k)
     # this loop could be parallelized!
