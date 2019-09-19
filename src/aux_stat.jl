@@ -1,7 +1,6 @@
 using Statistics
 function aux_stat(y)
     y = abs.(y)
-    end    
     # look for evidence of volatility clusters, for ρ
     mm = ma(y,5)
     mm = mm[5:end]
