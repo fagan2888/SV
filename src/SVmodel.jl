@@ -8,7 +8,7 @@ end
 
 # the dgp: simple discrete time stochastic volatility (SV) model
 function SVmodel(θ, n, η, ϵ, savedata=false)
-    α = θ[1]
+    α = 2.0*log(θ[1])
     ρ = θ[2]
     σ = θ[3]
     burnin = size(η,1) - n
