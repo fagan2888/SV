@@ -1,5 +1,6 @@
 using Statistics
 function aux_stat(y)
+    α = sqrt(mean(y.^2.0))
     y = abs.(y)
     # look for evidence of volatility clusters, for ρ
     mm = ma(y,5)
@@ -11,5 +12,5 @@ function aux_stat(y)
         clusters = 1.0
     end
     # HAR model, for all params
-    vcat(clusters, HAR(y))
+    vcat(α, clusters, HAR(y))
 end
