@@ -26,5 +26,5 @@ function SVmodel(θ, n, η, ϵ, savedata=false)
     if savedata == true
         writedlm("svdata.txt", ys)
     end    
-    ys
+    ys, hlag # return the sample of returns, plus the final period volatility
 end
