@@ -5,7 +5,7 @@ function logL(θ, m, n, η, ϵ, withdet=true)
     ms = zeros(S, k)
     # this loop could be parallelized!
     Threads.@threads for s = 1:S
-        ms[s,:] = sqrt(n)*aux_stat(SVmodel(θ, n, η[:,s], ϵ[:,s]))
+        ms[s,:] = sqrt(n)*aux_stat(SVmodel(θ, n, η[:,s], ϵ[:,s])[1]) # SVmodel returns last period vol, don't use it
     end
     mbar = mean(ms,dims=1)[:]
     if ~any(isnan.(mbar))
