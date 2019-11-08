@@ -1,13 +1,13 @@
 using Statistics
 function RawMoment(θ, m)
-    α = θ[1]
+    α = 2.0*log(θ[1])
     ρ = θ[2]
     σ = θ[3]
     exp(m*α/2.0 + (m^2.0)*σ/(1.0 - ρ^2.0)/4.0) # Shepphard GMM notes, page 384
 end
 
 function UnconditionalMoments(θ)
-    α = θ[1]
+    α = 2.0*log(θ[1])
     ρ = θ[2]
     σ = θ[3]
     vcat(
@@ -17,7 +17,6 @@ function UnconditionalMoments(θ)
         3.0*RawMoment(θ,4)               # mean y^4
         )
 end
-
 function aux_stat(y)
     α = sqrt(mean(y.^2.0))
     y = abs.(y)
