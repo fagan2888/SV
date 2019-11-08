@@ -12,29 +12,16 @@ function aux_stat(y)
     catch
         clusters = -1000.0
     end
+    mm = ma(y,10)
+    mm = mm[10:end]
     clusters2 = 0.0
     try
-        clusters2 = quantile(mm,0.9)-quantile(mm, 0.1)
+        clusters2 = quantile(mm,0.75)-quantile(mm, 0.25)
     catch
         clusters2 = -1000.0
     end
-    # look for evidence of volatility clusters, for ρ
-    mm = ma(y,10)
-    mm = mm[10:end]
-    clusters3 = 0.0
-    try
-        clusters3 = quantile(mm,0.75)-quantile(mm, 0.25)
-    catch
-        clusters3 = -1000.0
-    end
-    clusters4 = 0.0
-    try
-        clusters4 = quantile(mm,0.9)-quantile(mm, 0.1)
-    catch
-        clusters4 = -1000.0
-    end
     # HAR model, for all params
-    vcat(α, clusters, clusters2, clusters3, clusters4, HAR(y))
+    vcat(α, clusters, clusters2, HAR(y))
 end
 
 
