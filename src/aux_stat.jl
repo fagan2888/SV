@@ -12,10 +12,11 @@ function UnconditionalMoments(θ)
     σ = θ[3]
     vcat(
         sqrt(2.0/pi)*RawMoment(θ,1),   # mean (abs(y))
-        RawMoment(θ,2),                # mean y^2
-        2.0*sqrt(2.0/pi)*RawMoment(θ,3), # mean abs(y^3))
-        3.0*RawMoment(θ,4)               # mean y^4
+        RawMoment(θ,2) # mean y^2
         )
+        #2.0*sqrt(2.0/pi)*RawMoment(θ,3), # mean abs(y^3))
+        #3.0*RawMoment(θ,4)               # mean y^4
+        #)
 end
 function aux_stat(y)
     α = sqrt(mean(y.^2.0))
@@ -30,7 +31,7 @@ function aux_stat(y)
         clusters = 1.0
     end
     # HAR model, for all params
-    vcat(α, clusters, HAR(y), mean(abs.(y)), mean(y.^2.0), mean(abs.(y.^3.0)), mean(y.^4.0) )
+    vcat(α, clusters, HAR(y), mean(abs.(y)), mean(y.^2.0) )
 end
 
 function aux_stat(y, θ)
