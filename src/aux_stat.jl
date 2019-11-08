@@ -1,4 +1,43 @@
 using Statistics
+
+function aux_stat(y)
+    α = sqrt(mean(y.^2.0))
+    y = abs.(y)
+    # look for evidence of volatility clusters, for ρ
+    mm = ma(y,5)
+    mm = mm[5:end]
+    clusters = 0.0
+    try
+        clusters = quantile(mm,0.75)-quantile(mm, 0.25)
+    catch
+        clusters = -1000.0
+    end
+    clusters2 = 0.0
+    try
+        clusters2 = quantile(mm,0.9)-quantile(mm, 0.1)
+    catch
+        clusters2 = -1000.0
+    end
+    # look for evidence of volatility clusters, for ρ
+    mm = ma(y,10)
+    mm = mm[10:end]
+    clusters3 = 0.0
+    try
+        clusters3 = quantile(mm,0.75)-quantile(mm, 0.25)
+    catch
+        clusters3 = -1000.0
+    end
+    clusters4 = 0.0
+    try
+        clusters4 = quantile(mm,0.9)-quantile(mm, 0.1)
+    catch
+        clusters4 = -1000.0
+    end
+    # HAR model, for all params
+    vcat(α, clusters, clusters2, clusters3, clusters4, HAR(y))
+end
+
+
 #=
 function RawMoment(θ, m)
     α = 2.0*log(θ[1])
@@ -19,23 +58,7 @@ function UnconditionalMoments(θ)
         #3.0*RawMoment(θ,4)               # mean y^4
         #)
 end
-=#
-function aux_stat(y)
-    α = sqrt(mean(y.^2.0))
-    y = abs.(y)
-    # look for evidence of volatility clusters, for ρ
-    mm = ma(y,5)
-    mm = mm[5:end]
-    clusters = 0.0
-    try
-        clusters = quantile(mm,0.75)-quantile(mm, 0.25)
-    catch
-        clusters = 1.0
-    end
-    # HAR model, for all params
-    vcat(α, clusters, HAR(y))
-end
-#=
+=##=
 function aux_stat(y, θ)
     α = sqrt(mean(y.^2.0))
     y = abs.(y)
