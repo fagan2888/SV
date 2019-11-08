@@ -6,7 +6,7 @@ function logL(θ, m, n, η, ϵ, withdet=true)
     # this loop could be parallelized!
     Threads.@threads for s = 1:S
         y, junk = SVmodel(θ, n, η[:,s], ϵ[:,s])
-        ms[s,:] = sqrt(n)*aux_stat(y, θ)
+        ms[s,:] = sqrt(n)*aux_stat(y)
     end
     mbar = mean(ms,dims=1)[:]
     if ~any(isnan.(mbar))
