@@ -3,25 +3,20 @@ using Statistics
 function aux_stat(y)
     α = sqrt(mean(y.^2.0))
     y = abs.(y)
+    m = mean(y)
+    s = std(y)
+    k = std(y.^2.0)
     # look for evidence of volatility clusters, for ρ
     mm = ma(y,5)
     mm = mm[5:end]
-    clusters = 0.0
-    try
-        clusters = quantile(mm,0.75)-quantile(mm, 0.25)
-    catch
-        clusters = -1000.0
-    end
+    clusters1 = quantile(mm,0.75)-quantile(mm, 0.25)
+    clusters2 = quantile(mm,0.9)-quantile(mm, 0.1)
     mm = ma(y,10)
     mm = mm[10:end]
-    clusters2 = 0.0
-    try
-        clusters2 = quantile(mm,0.75)-quantile(mm, 0.25)
-    catch
-        clusters2 = -1000.0
-    end
+    clusters3 = quantile(mm,0.75)-quantile(mm, 0.25)
+    clusters4 = quantile(mm,0.9)-quantile(mm, 0.1)
     # HAR model, for all params
-    vcat(α, clusters, clusters2, HAR(y))
+    vcat(α, m, s, k, clusters1, clusters2, clusters3, clusters4, HAR(y))
 end
 
 
