@@ -15,9 +15,9 @@ function SVmodel(θ, n, η, ϵ, savedata=false)
     hlag = 0.0
     ys = zeros(n,1)
     for t = 1:burnin+n
-        h = ρ*hlag + σ*η[t] # figure out type
-        σt = exp(h/2.0)
-        y = ϕ*σt*ϵ[t]
+        h = ρ*hlag + σ*η[t]
+        σt = ϕ*exp(h/2.0)
+        y = σt*ϵ[t]
         if t > burnin 
             ys[t-burnin] = y
         end    
@@ -26,5 +26,5 @@ function SVmodel(θ, n, η, ϵ, savedata=false)
     if savedata == true
         writedlm("svdata.txt", ys)
     end    
-    ys, hlag # return the sample of returns, plus the final period volatility
+    ys, ϕ*exp(hlag/2.0) # return the sample of returns, plus the final period volatility
 end
