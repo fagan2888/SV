@@ -10,13 +10,11 @@ function aux_stat(y)
     mm = ma(y,5)
     mm = mm[5:end]
     clusters1 = quantile(mm,0.75)-quantile(mm, 0.25)
-    clusters2 = quantile(mm,0.9)-quantile(mm, 0.1)
     mm = ma(y,10)
     mm = mm[10:end]
-    clusters3 = quantile(mm,0.75)-quantile(mm, 0.25)
-    clusters4 = quantile(mm,0.9)-quantile(mm, 0.1)
+    clusters2 = quantile(mm,0.75)-quantile(mm, 0.25)
     # HAR model, for all params
-    vcat(α, m, s, k, clusters1, clusters2, clusters3, clusters4, HAR(y))
+    vcat(α, m, s, k, clusters1, clusters2, HAR(y))
 end
 
 
