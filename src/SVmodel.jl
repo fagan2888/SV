@@ -4,7 +4,7 @@ function SVmodel(θ, n, burnin)
     η = randn(n+burnin)
     ϵ = randn(n+burnin)
     SVmodel(θ, n, η, ϵ, false)
-end    
+end
 
 # the dgp: simple discrete time stochastic volatility (SV) model
 function SVmodel(θ, n, η, ϵ, savedata=false)
