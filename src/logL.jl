@@ -1,7 +1,7 @@
 # asymptotic Gaussian likelihood function of statistic
 
 # version which does not fix the random draws
-function logL(θ, m, S::Int, n::Int, burnin::Int)
+function logL(θ, m, S::Int, n::Int, burnin::Int, withdet=true)
     k = size(m,1)
     ms = zeros(S, k)
     Threads.@threads for s = 1:S
