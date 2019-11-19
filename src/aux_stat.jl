@@ -17,24 +17,6 @@ function aux_stat(y)
     vcat(α, m, s, k, clusters1, clusters2, HAR(y))
 end
 
-# method to pass stat through a trained Flux net
-function aux_stat(y, model)
-    α = sqrt(mean(y.^2.0))
-    y = abs.(y)
-    m = mean(y)
-    s = std(y)
-    k = std(y.^2.0)
-    # look for evidence of volatility clusters, for ρ
-    mm = ma(y,5)
-    mm = mm[5:end]
-    clusters1 = quantile(mm,0.75)-quantile(mm, 0.25)
-    mm = ma(y,10)
-    mm = mm[10:end]
-    clusters2 = quantile(mm,0.75)-quantile(mm, 0.25)
-    # HAR model, for all params
-    Float64.(model(vcat(α, m, s, k, clusters1, clusters2, HAR(y))).data)
-end
-
 
 
 #=
