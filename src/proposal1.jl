@@ -5,7 +5,7 @@ function proposal1(current, tuning, lb, ub)
         i = rand(1:size(current,1))
         trial[i] = current[i] + tuning[i].*randn()
     else
-        trial = lb + (ub - lb).*rand(size(lb))
+        trial = lb + (ub - lb).*rand(size(lb,1))
     end    
     return trial
 end
