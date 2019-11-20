@@ -1,4 +1,4 @@
-# uniform random walk, with bounds check
+# uniform random walk
 function proposal1(current, tuning, lb, ub)
     trial = copy(current)
     if rand() > 0.1
@@ -7,7 +7,5 @@ function proposal1(current, tuning, lb, ub)
     else
         trial = lb + (ub - lb).*rand(size(lb))
     end    
-    trial = max.(trial, lb)
-    trial = min.(trial, ub)
     return trial
 end

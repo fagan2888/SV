@@ -5,6 +5,5 @@ function proposal2(current, cholV, lb, ub)
     else
         trial = lb + (ub - lb).*rand(size(lb))
     end
-
-
+    return trial
 end
