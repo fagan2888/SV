@@ -7,5 +7,7 @@ function proposal1(current, tuning, lb, ub)
     else
         trial = lb + (ub - lb).*rand(size(lb))
     end    
+    trial = max.(trial, lb)
+    trial = min.(trial, ub)
     return trial
 end
