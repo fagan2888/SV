@@ -1,9 +1,8 @@
 # uniform random walk
-function proposal1(current, tuning, lb, ub)
-    trial = copy(current)
+function proposal1(trial, tuning, lb, ub)
     if rand() > 0.1
-        i = rand(1:size(current,1))
-        trial[i] = current[i] + tuning[i].*randn()
+        i = rand(1:size(trial,1))
+        trial[i] += tuning[i].*randn()
     else
         trial = lb + (ub - lb).*rand(size(lb,1))
     end    
