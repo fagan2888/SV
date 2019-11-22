@@ -1,4 +1,5 @@
-function proposal2(trial, cholV, lb, ub)
+function proposal2(current, cholV, lb, ub)
+    trial = copy(current)
     if rand() > 0.1
         trial += cholV'*randn(size(trial))
     else
