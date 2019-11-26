@@ -8,7 +8,7 @@ function SVmodel(θ, n, burnin)
     hlag = 0.0
     ys = zeros(n)
     for t = 1:burnin+n
-        h = ρ*hlag + σ*randn()
+        h = min(ρ*hlag + σ*randn(),20.0) # bound the variance
         y = ϕ*exp(h/2.0)*randn()
         if t > burnin 
             ys[t-burnin] = y
