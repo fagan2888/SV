@@ -16,12 +16,11 @@ function aux_stat(y)
     lagy = y[1:end-1]
     y = y[2:end]
     X = [ones(size(y,1)) lagy]
-    Y = [cos.(y.*lagy) cos.(2.0 * y.*lagy)]
+    Y = [cos.(y) cos.(y.*lagy) sin.(y) sin.(y.*lagy)]
     b = (X\y)[:]
                             
     # HAR model, for all params
-    vcat(α, m, s, k, clusters1, clusters2, HAR(y),
-         mean(cos.(y)), mean(cos.(2.0*y)), mean(sin.(y)), mean(sin.(2.0*y)), b)
+    vcat(α, m, s, k, clusters1, clusters2, HAR(y), b)
 end
 
 
