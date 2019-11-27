@@ -15,7 +15,7 @@ function aux_stat(y)
     clusters2 = quantile(mm,0.75)-quantile(mm, 0.25)
     lagy = y[1:end-1]
     y = y[2:end]
-    X = [ones(size(y,1) lagy]
+    X = [ones(size(y,1)) lagy]
     Y = [cos.(y.*lagy) cos.(2.0 * y.*lagy)]
     b = (X\y)[:]
                             
