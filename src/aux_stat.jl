@@ -14,10 +14,10 @@ function aux_stat(y)
     mm = mm[10:end]
     clusters2 = quantile(mm,0.75)-quantile(mm, 0.25)
     lagy = y[1:end-1]
-    y = y[2:end]
-    X = [ones(size(y,1)) lagy]
-    Y = [cos.(y) cos.(y.*lagy) sin.(y) sin.(y.*lagy)]
-    b = (X\y)[:]
+    yy = y[2:end]
+    X = [ones(size(yy,1)) lagy]
+    Y = [cos.(yy) cos.(yy.*lagy) sin.(yy) sin.(yy.*lagy)]
+    b = (X\Y)[:]
                             
     # HAR model, for all params
     vcat(α, m, s, k, clusters1, clusters2, HAR(y), b)
